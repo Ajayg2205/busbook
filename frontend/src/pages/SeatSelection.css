@@ -1,0 +1,63 @@
+.seat-page { padding: 100px 0 60px; min-height: 100vh; }
+.seat-page__header { text-align: center; margin-bottom: 40px; }
+.route-info { color: var(--text-muted); display: flex; align-items: center; gap: 8px; justify-content: center; font-weight: 600; }
+.seat-layout { display: grid; grid-template-columns: 1fr 320px; gap: 24px; }
+
+.bus-diagram { padding: 32px; display: flex; flex-direction: column; align-items: center; gap: 16px; }
+.bus-front, .bus-back {
+  width: 100%; text-align: center;
+  padding: 12px; background: var(--bg);
+  border-radius: var(--radius-md); color: var(--text-muted);
+  font-size: 0.85rem; font-weight: 600;
+}
+.bus-front { font-size: 2rem; }
+
+.seat-grid { display: flex; flex-direction: column; gap: 8px; width: 100%; }
+.seat-row { display: flex; gap: 8px; justify-content: center; align-items: center; }
+.aisle { width: 32px; }
+
+.seat-btn {
+  width: 52px; height: 52px; border-radius: 10px 10px 6px 6px;
+  border: none; cursor: pointer; font-family: var(--font-body);
+  transition: var(--transition); position: relative;
+  display: flex; flex-direction: column; align-items: center; justify-content: center;
+}
+.seat--available { background: #E8F5E9; color: #2e7d32; border: 1.5px solid #A5D6A7; }
+.seat--available:hover { background: var(--accent); color: white; transform: translateY(-2px); }
+.seat--selected { background: var(--primary); color: white; border: 1.5px solid var(--primary-dark); transform: scale(1.05); }
+.seat--booked { background: #FAFAFA; color: #ccc; border: 1.5px solid #E0E0E0; cursor: not-allowed; }
+.seat-number { font-size: 0.75rem; font-weight: 700; }
+
+.seat-legend {
+  display: flex; gap: 20px; flex-wrap: wrap; justify-content: center;
+  padding-top: 16px; border-top: 1px solid var(--border); width: 100%;
+}
+.legend-item { display: flex; align-items: center; gap: 8px; font-size: 0.82rem; color: var(--text-muted); }
+.legend-box { width: 20px; height: 20px; border-radius: 5px; }
+.legend--available { background: #E8F5E9; border: 1.5px solid #A5D6A7; }
+.legend--selected { background: var(--primary); }
+.legend--booked { background: #FAFAFA; border: 1.5px solid #E0E0E0; }
+
+/* Summary */
+.seat-summary { padding: 28px; height: fit-content; position: sticky; top: 100px; }
+.seat-summary h3 { font-family: var(--font-display); font-weight: 700; margin-bottom: 20px; }
+.no-seats-msg { color: var(--text-muted); font-size: 0.9rem; text-align: center; padding: 20px; }
+.selected-seats { display: flex; flex-direction: column; gap: 8px; margin-bottom: 20px; }
+.selected-seat-chip {
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 10px 14px; background: rgba(255,107,53,.08);
+  border-radius: var(--radius-sm); border: 1px solid rgba(255,107,53,.2);
+}
+.selected-seat-chip span { font-weight: 600; font-size: 0.9rem; }
+.chip-type { font-size: 0.75rem; color: var(--text-muted); text-transform: capitalize; }
+.chip-remove { background: none; border: none; cursor: pointer; color: #dc2626; font-size: 1.1rem; padding: 0 4px; }
+
+.fare-breakdown { background: var(--bg); padding: 16px; border-radius: var(--radius-md); }
+.fare-row { display: flex; justify-content: space-between; padding: 6px 0; font-size: 0.88rem; color: var(--text-muted); }
+.fare-total { border-top: 1px solid var(--border); padding-top: 10px; margin-top: 6px; color: var(--text); }
+.fare-total strong { font-family: var(--font-display); font-size: 1.1rem; color: var(--primary); }
+
+@media (max-width: 900px) {
+  .seat-layout { grid-template-columns: 1fr; }
+  .seat-summary { position: static; }
+}

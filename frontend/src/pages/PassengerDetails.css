@@ -1,0 +1,64 @@
+.passenger-page { padding: 100px 0 60px; min-height: 100vh; }
+
+.booking-progress {
+  display: flex; align-items: center; justify-content: center;
+  gap: 0; margin-bottom: 48px; flex-wrap: wrap;
+}
+.progress-step {
+  padding: 8px 20px; border-radius: 20px; font-size: 0.82rem; font-weight: 700;
+  background: var(--bg); color: var(--text-muted); border: 2px solid var(--border);
+  white-space: nowrap;
+}
+.progress-step--done { background: rgba(0,212,170,.1); color: var(--accent); border-color: var(--accent); }
+.progress-step--active { background: var(--primary); color: white; border-color: var(--primary); }
+.progress-line { width: 40px; height: 2px; background: var(--border); flex-shrink: 0; }
+.progress-line--done { background: var(--accent); }
+
+.passenger-layout { display: grid; grid-template-columns: 1fr 300px; gap: 24px; margin-bottom: 32px; }
+.passenger-forms { display: flex; flex-direction: column; gap: 20px; }
+
+.passenger-card { padding: 28px; }
+.passenger-card__header {
+  display: flex; align-items: center; justify-content: space-between;
+  margin-bottom: 24px; padding-bottom: 16px; border-bottom: 1px solid var(--border);
+}
+.passenger-number {
+  display: flex; align-items: center; gap: 8px;
+  font-family: var(--font-display); font-weight: 700; font-size: 1rem;
+}
+.passenger-form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+
+.trip-mini-summary { padding: 24px; height: fit-content; position: sticky; top: 100px; }
+.trip-mini-summary h3 { font-family: var(--font-display); font-weight: 700; margin-bottom: 20px; }
+.mini-route {
+  display: flex; align-items: center; gap: 10px;
+  padding: 16px; background: var(--bg); border-radius: var(--radius-md);
+  margin-bottom: 20px; font-family: var(--font-display); font-size: 1rem;
+}
+.mini-arrow { color: var(--primary); }
+.mini-details { display: flex; flex-direction: column; gap: 12px; margin-bottom: 20px; }
+.mini-details > div { display: flex; justify-content: space-between; font-size: 0.88rem; }
+.mini-details span { color: var(--text-muted); }
+.mini-total {
+  display: flex; justify-content: space-between; align-items: center;
+  padding: 16px; background: rgba(255,107,53,.08);
+  border-radius: var(--radius-md); border: 1px solid rgba(255,107,53,.2);
+}
+.mini-total strong { font-family: var(--font-display); font-size: 1.2rem; color: var(--primary); }
+
+.passenger-actions {
+  display: flex; justify-content: space-between; align-items: center;
+  padding: 24px 0; border-top: 1px solid var(--border);
+}
+
+@media (max-width: 900px) {
+  .passenger-layout { grid-template-columns: 1fr; }
+  .trip-mini-summary { position: static; }
+  .passenger-form-grid { grid-template-columns: 1fr; }
+  .passenger-form-grid > div[style] { grid-column: span 1 !important; }
+}
+@media (max-width: 480px) {
+  .booking-progress { gap: 4px; }
+  .progress-line { width: 20px; }
+  .progress-step { padding: 6px 12px; font-size: 0.72rem; }
+}

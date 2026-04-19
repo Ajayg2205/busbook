@@ -1,0 +1,114 @@
+.navbar {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 1000;
+  transition: all 0.3s ease;
+}
+.navbar--transparent {
+  background: transparent;
+  border-bottom: 1px solid rgba(255,255,255,0.1);
+}
+.navbar--solid {
+  background: rgba(255,255,255,0.95);
+  backdrop-filter: blur(20px);
+  border-bottom: 1px solid var(--border);
+  box-shadow: 0 2px 20px rgba(0,0,0,0.08);
+}
+.navbar__container {
+  max-width: 1200px; margin: 0 auto; padding: 0 20px;
+  height: 70px; display: flex; align-items: center; gap: 40px;
+}
+.navbar__logo {
+  display: flex; align-items: center; gap: 10px;
+  text-decoration: none; flex-shrink: 0;
+}
+.navbar__logo-icon {
+  width: 38px; height: 38px; background: var(--primary);
+  border-radius: 10px; display: flex; align-items: center; justify-content: center;
+  color: white; font-size: 1.1rem;
+}
+.navbar__logo-text {
+  font-family: var(--font-display); font-weight: 800; font-size: 1.3rem;
+  color: var(--text);
+}
+.navbar--transparent .navbar__logo-text { color: #fff; }
+.navbar__logo-text span { color: var(--primary); }
+.navbar--transparent .navbar__logo-text span { color: #FFB347; }
+
+.navbar__links {
+  display: flex; align-items: center; gap: 4px; flex: 1;
+}
+.navbar__link {
+  padding: 8px 14px; border-radius: 8px;
+  font-weight: 500; font-size: 0.9rem; text-decoration: none;
+  color: var(--text-muted); transition: var(--transition);
+}
+.navbar--transparent .navbar__link { color: rgba(255,255,255,0.8); }
+.navbar__link:hover, .navbar__link.active {
+  color: var(--primary); background: rgba(255,107,53,0.08);
+}
+.navbar--transparent .navbar__link:hover { color: #fff; background: rgba(255,255,255,0.1); }
+
+.navbar__actions { display: flex; align-items: center; gap: 8px; margin-left: auto; }
+
+.navbar__user {
+  position: relative; display: flex; align-items: center; gap: 8px;
+  padding: 6px 12px; border-radius: 12px; cursor: pointer;
+  transition: var(--transition);
+}
+.navbar__user:hover { background: rgba(255,107,53,0.08); }
+.navbar__avatar {
+  width: 34px; height: 34px; background: var(--primary);
+  border-radius: 50%; display: flex; align-items: center; justify-content: center;
+  color: white; font-weight: 700; font-size: 0.9rem;
+}
+.navbar__username { font-weight: 600; font-size: 0.9rem; color: var(--text); }
+.navbar--transparent .navbar__username { color: white; }
+.navbar__chevron {
+  font-size: 0.7rem; color: var(--text-muted);
+  transition: transform 0.2s;
+}
+.navbar__chevron.open { transform: rotate(180deg); }
+
+.navbar__dropdown {
+  position: absolute; top: calc(100% + 8px); right: 0;
+  background: white; border: 1px solid var(--border);
+  border-radius: var(--radius-md); box-shadow: var(--shadow-lg);
+  min-width: 180px; overflow: hidden; animation: fadeInUp 0.2s ease;
+}
+.dropdown__item {
+  display: flex; align-items: center; gap: 10px;
+  padding: 12px 16px; font-size: 0.9rem; font-weight: 500;
+  color: var(--text); text-decoration: none; cursor: pointer;
+  border: none; background: none; width: 100%; text-align: left;
+  transition: var(--transition);
+}
+.dropdown__item:hover { background: var(--bg); color: var(--primary); }
+.dropdown__item--danger { color: #dc2626; }
+.dropdown__item--danger:hover { background: #fff5f5; color: #dc2626; }
+.dropdown__divider { height: 1px; background: var(--border); margin: 4px 0; }
+
+.navbar__hamburger {
+  display: none; background: none; border: none; cursor: pointer;
+  font-size: 1.3rem; color: var(--text); margin-left: auto; padding: 6px;
+}
+.navbar--transparent .navbar__hamburger { color: white; }
+
+.navbar__mobile-menu {
+  background: white; border-top: 1px solid var(--border);
+  padding: 16px 20px; display: flex; flex-direction: column; gap: 4px;
+}
+.mobile-link {
+  padding: 12px 16px; border-radius: var(--radius-sm);
+  font-weight: 600; font-size: 0.95rem; color: var(--text);
+  text-decoration: none; border: none; background: none;
+  cursor: pointer; text-align: left; transition: var(--transition);
+}
+.mobile-link:hover { background: var(--bg); color: var(--primary); }
+.mobile-link--primary { background: var(--primary); color: white; text-align: center; }
+.mobile-link--primary:hover { background: var(--primary-dark); color: white; }
+.mobile-link--danger { color: #dc2626; }
+
+@media (max-width: 900px) {
+  .navbar__links { display: none; }
+  .navbar__actions { display: none; }
+  .navbar__hamburger { display: block; }
+}
