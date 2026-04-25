@@ -15,3 +15,5 @@ frontend/.env
 .vscode/
 *.sqlite3
 *.log
+# Local Netlify folder
+.netlify

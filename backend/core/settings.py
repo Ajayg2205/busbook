@@ -136,3 +136,8 @@ DEFAULT_FROM_EMAIL = 'BusBook <noreply@busbook.com>'
 
 RAZORPAY_KEY_ID = 'rzp_test_SevMeyxXItUZ9U'
 RAZORPAY_KEY_SECRET = 'Es344lxuLPiGyniDNj0d5KLX'
+
+import dj_database_url
+DATABASE_URL = os.environ.get('DATABASE_URL')
+if DATABASE_URL:
+    DATABASES['default'] = dj_database_url.parse(DATABASE_URL)
