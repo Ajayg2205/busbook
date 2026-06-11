@@ -78,9 +78,11 @@ DATABASES = {
         'HOST': os.environ.get('DB_HOST', 'localhost'),
         'PORT': os.environ.get('DB_PORT', '3306'),
         'OPTIONS': {
-            'charset': 'utf8mb4',
-            'ssl': {'ssl-mode': os.environ.get('DB_SSL_MODE', 'PREFERRED')},
-        },
+    'charset': 'utf8mb4',
+    'ssl': {
+        'ca': '/etc/ssl/certs/ca-certificates.crt'
+    },
+},
     }
 }
 
