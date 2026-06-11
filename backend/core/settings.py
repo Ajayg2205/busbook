@@ -4,15 +4,19 @@ Django Settings for BusBook Project
 from pathlib import Path
 import os
 from datetime import timedelta
+import pymysql
+
+# PyMySQL as MySQL engine — MUST be before anything else
+pymysql.install_as_MySQLdb()
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-SECRET_KEY = 'django-insecure-change-this-in-production-use-env-var'
+# ─── SECURITY ─────────────────────────────────────────────────────────────────
+SECRET_KEY = os.environ.get('SECRET_KEY', 'django-insecure-local-dev-only')
+DEBUG = os.environ.get('DEBUG', 'False') == 'True'
+ALLOWED_HOSTS = ['*']  # Render URL added automatically
 
-DEBUG = True  # Set False in production
-
-ALLOWED_HOSTS = ['*']  # Restrict in production: ['yourdomain.com', 'www.yourdomain.com']
-
+# ─── APPS ─────────────────────────────────────────────────────────────────────
 INSTALLED_APPS = [
     'django.contrib.admin',
     'django.contrib.auth',
@@ -30,10 +34,12 @@ INSTALLED_APPS = [
     'bookings',
 ]
 
+# ─── MIDDLEWARE ───────────────────────────────────────────────────────────────
+# ⚠️ corsheaders MUST be FIRST
 MIDDLEWARE = [
+    'corsheaders.middleware.CorsMiddleware',              # ✅ FIRST
     'django.middleware.security.SecurityMiddleware',
     'whitenoise.middleware.WhiteNoiseMiddleware',
-    'corsheaders.middleware.CorsMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
@@ -62,21 +68,23 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'core.wsgi.application'
 
-# ─── DATABASE (MySQL) ──────────────────────────────────────────────────────────
+# ─── DATABASE (Aiven MySQL) ───────────────────────────────────────────────────
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'busbook_db',
-        'USER': 'busbook_user',
-        'PASSWORD': 'U22CA2005',
-        'HOST': 'localhost',
-        'PORT': '3306',
+        'NAME': os.environ.get('DB_NAME', 'busbook_db'),
+        'USER': os.environ.get('DB_USER', 'busbook_user'),
+        'PASSWORD': os.environ.get('DB_PASSWORD', 'U22CA2005'),
+        'HOST': os.environ.get('DB_HOST', 'localhost'),
+        'PORT': os.environ.get('DB_PORT', '3306'),
         'OPTIONS': {
             'charset': 'utf8mb4',
+            'ssl': {'ssl-mode': os.environ.get('DB_SSL_MODE', 'PREFERRED')},
         },
     }
 }
 
+# ─── AUTH ─────────────────────────────────────────────────────────────────────
 AUTH_PASSWORD_VALIDATORS = [
     {'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator'},
     {'NAME': 'django.contrib.auth.password_validation.MinimumLengthValidator'},
@@ -84,11 +92,15 @@ AUTH_PASSWORD_VALIDATORS = [
     {'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator'},
 ]
 
+AUTH_USER_MODEL = 'users.User'
+
+# ─── LOCALISATION ─────────────────────────────────────────────────────────────
 LANGUAGE_CODE = 'en-us'
 TIME_ZONE = 'Asia/Kolkata'
 USE_I18N = True
 USE_TZ = True
 
+# ─── STATIC FILES ─────────────────────────────────────────────────────────────
 STATIC_URL = '/static/'
 STATIC_ROOT = BASE_DIR / 'staticfiles'
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
@@ -97,8 +109,6 @@ MEDIA_URL = '/media/'
 MEDIA_ROOT = BASE_DIR / 'media'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
-
-AUTH_USER_MODEL = 'users.User'
 
 # ─── REST FRAMEWORK ───────────────────────────────────────────────────────────
 REST_FRAMEWORK = {
@@ -121,11 +131,12 @@ SIMPLE_JWT = {
 CORS_ALLOWED_ORIGINS = [
     "http://localhost:3000",
     "http://127.0.0.1:3000",
-    "http://192.168.3.167:3000",  # Replace with your domain
+    "http://192.168.3.167:3000",
+    "https://your-app.netlify.app",   # ✅ Update after Netlify deploy
 ]
 CORS_ALLOW_CREDENTIALS = True
 
-# ─── EMAIL (for booking confirmation) ─────────────────────────────────────────
+# ─── EMAIL ────────────────────────────────────────────────────────────────────
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_PORT = 587
@@ -134,10 +145,6 @@ EMAIL_HOST_USER = os.environ.get('EMAIL_USER', '')
 EMAIL_HOST_PASSWORD = os.environ.get('EMAIL_PASS', '')
 DEFAULT_FROM_EMAIL = 'BusBook <noreply@busbook.com>'
 
-RAZORPAY_KEY_ID = 'rzp_test_SevMeyxXItUZ9U'
-RAZORPAY_KEY_SECRET = 'Es344lxuLPiGyniDNj0d5KLX'
-
-import dj_database_url
-DATABASE_URL = os.environ.get('DATABASE_URL')
-if DATABASE_URL:
-    DATABASES['default'] = dj_database_url.parse(DATABASE_URL)
+# ─── RAZORPAY ─────────────────────────────────────────────────────────────────
+RAZORPAY_KEY_ID = os.environ.get('RAZORPAY_KEY_ID', '')
+RAZORPAY_KEY_SECRET = os.environ.get('RAZORPAY_KEY_SECRET', '')
