@@ -131,8 +131,7 @@ SIMPLE_JWT = {
 CORS_ALLOWED_ORIGINS = [
     "http://localhost:3000",
     "http://127.0.0.1:3000",
-    "http://192.168.3.167:3000",
-    "https://your-app.netlify.app",   # ✅ Update after Netlify deploy
+    "https://busbook-fullstack-ajay.netlify.app",
 ]
 CORS_ALLOW_CREDENTIALS = True
 
