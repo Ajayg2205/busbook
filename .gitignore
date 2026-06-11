@@ -6,6 +6,14 @@ backend/media/
 **/*.pyc
 **/__pycache__/
 
+# Environment files — NEVER push
+backend/.env
+.env
+
+# SSL Certificate
+ca.pem
+backend/ca.pem
+
 # React
 frontend/node_modules/
 frontend/build/
@@ -15,5 +23,6 @@ frontend/.env
 .vscode/
 *.sqlite3
 *.log
-# Local Netlify folder
+
+# Netlify
 .netlify
